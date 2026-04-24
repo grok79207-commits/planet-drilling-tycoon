@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planet Drilling Tycoon</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 0; padding: 0; } 
+        .container { text-align: center; padding: 20px; }
+        .upgrade { margin: 10px; }
+        .mining-timer { font-size: 24px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Planet Drilling Tycoon</h1>
+        <div class="mining-timer"></div>
+        <button id="startMining">Start Mining</button>
+        <div id="resources">Resources: 0</div>
+        <div class="upgrade-tree">
+            <h2>Upgrade Tree</h2>
+            <div class="upgrade">
+                <button class="upgrade-btn">Upgrade Power (+1)</button>
+            </div>
+            <!-- More upgrades here -->
+        </div>
+    </div>
+
+    <script>
+        let resources = 0;
+        let miningTimer;
+        let miningPower = 1;
+
+        document.getElementById('startMining').onclick = function() {
+            startMining();
+        };
+
+        function startMining() {
+            const timerDisplay = document.querySelector('.mining-timer');
+            let timeLeft = 10;
+            resources += miningPower;
+            updateResources();
+
+            miningTimer = setInterval(function() {
+                if (timeLeft <= 0) {
+                    clearInterval(miningTimer);
+                    timerDisplay.innerText = 'Mining Complete!';
+                    return;
+                }
+                timerDisplay.innerText = `Mining... ${timeLeft--} seconds remaining`;
+            }, 1000);
+        }
+
+        function updateResources() {
+            document.getElementById('resources').innerText = `Resources: ${resources}`;
+        }
+    </script>
+</body>
+</html>
